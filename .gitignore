@@ -1,0 +1,7 @@
+__pycache__/
+.idea/
+raspberrypi/recordings/
+raspberrypi/__pycache__/
+.venv/
+README details/
+README project overall/
