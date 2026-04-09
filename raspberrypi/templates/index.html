@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Recorder</title>
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            margin-top: 100px;
+            background: #f5f5f5;
+        }
+        button {
+            font-size: 20px;
+            padding: 15px 30px;
+            margin: 10px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        .start { background: green; color: white; }
+        .stop { background: red; color: white; }
+        #status {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎙 Recorder Control</h1>
+
+    <button class="start" onclick="startRecording()">START</button>
+    <button class="stop" onclick="stopRecording()">STOP</button>
+
+    <div id="status">Status: idle</div>
+
+    <script>
+        async function startRecording() {
+            const res = await fetch('/start');
+            const data = await res.json();
+            document.getElementById('status').innerText = "Status: " + data.status;
+        }
+
+        async function stopRecording() {
+            const res = await fetch('/stop');
+            const data = await res.json();
+            document.getElementById('status').innerText = "Status: " + data.status;
+        }
+    </script>
+</body>
+</html>

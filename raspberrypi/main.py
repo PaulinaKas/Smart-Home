@@ -1,14 +1,18 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+from fastapi.templating import Jinja2Templates
+from fastapi.responses import HTMLResponse
 from datetime import datetime
 import subprocess
 import os
 
+
 # uvicorn raspberrypi.main:app --host 127.0.0.1 --port 8000
+# uvicorn raspberrypi.main:app --host 0.0.0.0 --port 8000
 # http://127.0.0.1:8000/docs
 
 app = FastAPI()
-
-os.makedirs("recordings", exist_ok=True)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+templates = Jinja2Templates(directory=os.path.join(BASE_DIR, "templates"))
 
 class Recorder:
     def __init__(self):
@@ -16,10 +20,10 @@ class Recorder:
 
     def start(self):
         if self.process is None:  # checks if recording is already running
-            os.makedirs("recordings", exist_ok=True)
+            os.makedirs(os.path.join(BASE_DIR, "recordings"), exist_ok=True)
 
             filename = datetime.now().strftime("%Y%m%d_%H%M%S.wav")
-            filepath = f"recordings/{filename}"
+            filepath = f"{BASE_DIR}/recordings/{filename}"
 
             self.process = subprocess.Popen([
                 "arecord",
@@ -58,3 +62,11 @@ def start():
 def stop():
     success = recorder.stop()
     return {"status": "recording_stopped" if success else "not_recording"}
+
+@app.get("/ui", response_class=HTMLResponse)
+def ui(request: Request):
+    return templates.TemplateResponse(
+        request=request,
+        name="index.html",
+        context={}
+    )
