@@ -34,16 +34,43 @@
     <div id="status">Status: idle</div>
 
     <script>
-        async function startRecording() {
-            const res = await fetch('/start');
-            const data = await res.json();
-            document.getElementById('status').innerText = "Status: " + data.status;
-        }
+    async function startRecording() {
+        const res = await fetch('/start');
+        const data = await res.json();
 
-        async function stopRecording() {
-            const res = await fetch('/stop');
-            const data = await res.json();
-            document.getElementById('status').innerText = "Status: " + data.status;
+        document.getElementById('status').innerText =
+            "Nagrywanie: " + data.status;
+    }
+
+    async function stopRecording() {
+        const statusDiv = document.getElementById('status');
+
+        statusDiv.innerText = "Recording stopped...";
+
+        const res = await fetch('/stop');
+        const data = await res.json();
+
+        if (data.session_path) {
+            statusDiv.innerText = "Downloading the recording...";
+
+            const pullRes = await fetch('http://raspberrypi:8001/pull', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    session_path: data.session_path
+                })
+            });
+
+            const pullData = await pullRes.json();
+
+            if (pullData.status === "success") {
+                statusDiv.innerText = "Downloading finished";
+            } else {
+                statusDiv.innerText = "Error while downloading";
+            }
+        }
         }
     </script>
 </body>
