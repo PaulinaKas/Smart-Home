@@ -1,7 +1,7 @@
 __pycache__/
 .idea/
-!raspberrypi/recordings/.gitkeep
-!raspberrypi/sessions/.gitkeep
+raspberrypi/recordings/
+raspberrypi/sessions/
 raspberrypi/__pycache__/
 .venv/
 README details/
