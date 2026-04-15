@@ -11,3 +11,6 @@
   * pull endpoint (PC server)
   * recording sessions are transferring automatically into PC
   * LOG info extended 
+* 15.04.2026
+  * sample recorded audio file transcribed (faster_whisper)
+  * test comparing transcription vs original text (jiwer)
