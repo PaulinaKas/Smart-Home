@@ -13,4 +13,7 @@
   * LOG info extended 
 * 15.04.2026
   * sample recorded audio file transcribed (faster_whisper)
-  * test comparing transcription vs original text (jiwer)
+  * speech evaluation: transcription vs original text (jiwer)
+* 6.05.2026
+  * speech evaluation: jiwer metrics extended by match error rate and word information lost
+  * speaker recognition: speakers number validation

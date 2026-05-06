@@ -1,5 +1,5 @@
 import os
-from jiwer import wer, cer
+import jiwer
 from raspberrypi.transcription import transcribe, normalize
 from raspberrypi.sessions.session_20260415_203515 import audio_transcription
 
@@ -11,7 +11,9 @@ original_transcription = normalize(audio_transcription.original_audio_transcript
 
 def validate_original_vs_test(test_txt, original_txt):
     print(f"{original_txt} \n\n {test_txt}")
-    print("WER:", wer(original_txt, test_txt))
-    print("CER:", cer(original_txt, test_txt))
+    print("WER:", jiwer.wer(original_txt, test_txt)) # word error rate
+    print("CER:", jiwer.cer(original_txt, test_txt)) # character error rate
+    print("MER", jiwer.mer(original_txt, test_txt))  # match error rate
+    print("WIL", jiwer.mer(original_txt, test_txt))  # word information lost
 
 validate_original_vs_test(original_transcription, test_transcription)
