@@ -1,7 +1,13 @@
+numpy==1.26.4
+huggingface_hub==0.23.5
 fastapi==0.135.3
 uvicorn==0.44.0
 jinja2==3.1.6
 requests==2.33.1
 faster-whisper==1.2.1
 jiwer==4.0.0
-pyannote-audio==4.0.4
+torch==2.5.1
+torchaudio==2.5.1
+pyannote-core==5.0.0
+pyannote.metrics==3.2.1
+pyannote.audio==3.1.1 # --no-deps

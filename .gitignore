@@ -4,6 +4,7 @@ raspberrypi/recordings/
 raspberrypi/sessions/
 raspberrypi/__pycache__/
 .venv/
+venv310/
 README details/
 README project overall/
 config.py
