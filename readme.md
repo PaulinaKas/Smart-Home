@@ -16,4 +16,6 @@
   * speech evaluation: transcription vs original text (jiwer)
 * 6.05.2026
   * speech evaluation: jiwer metrics extended by match error rate and word information lost
-  * speaker recognition: speakers number validation
+  * speaker recognition: speakers number detection
+* 7.05.2026
+  * more diverse records added and evaluated

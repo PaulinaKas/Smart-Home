@@ -1,21 +1,28 @@
 from pyannote.audio import Pipeline
-from collections import set
+from config import huggingface_token
 import os
+from pathlib import Path
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-audio_file = os.path.join(BASE_DIR, "raspberrypi", "sessions", "session_20260415_203515", "audio.wav")
+BASE_DIR = Path(__file__).resolve().parents[2]
+audio_file_1speaker = os.path.join(BASE_DIR, "raspberrypi", "sessions", "session_20260415_203515", "audio.wav")
+audio_file_2speakers = os.path.join(BASE_DIR, "raspberrypi", "sessions", "session_20260507_082323", "audio.wav")
+audio_file_2speakers_2 = os.path.join(BASE_DIR, "raspberrypi", "sessions", "session_20260507_082903", "audio.wav")
+audio_file_2speakers_3 = os.path.join(BASE_DIR, "raspberrypi", "sessions", "session_20260507_083917", "audio.wav")
 
-pipeline = Pipeline.from_pretrained("pyannote/speaker-diarization-3.1")
-diarization = pipeline(audio_file)
-speakers = set()
 
-for turn, _, speaker in diarization.itertracks(yield_label=True):
-    speakers.add(speaker)
+def detect_speakers_number(audio_file):
+    pipeline = Pipeline.from_pretrained("pyannote/speaker-diarization-3.1",
+                                        use_auth_token=huggingface_token)
+    diarization = pipeline(audio_file)
+    speakers = set()
 
-print("Detected speakers:", speakers)
-print("Number of speakers:", len(speakers))
+    for turn, _, speaker in diarization.itertracks(yield_label=True):
+        speakers.add(speaker)
 
-if len(speakers) == 1:
-    print("Audio contains ONE speaker")
-else:
-    print("Audio contains MULTIPLE speakers")
+    print("Detected speakers:", speakers)
+    print("Number of speakers:", len(speakers))
+
+# detect_speakers_number(audio_file_1speaker) # True
+# detect_speakers_number(audio_file_2speakers) # False
+# detect_speakers_number(audio_file_2speakers_2) # False
+detect_speakers_number(audio_file_2speakers_3) # True
