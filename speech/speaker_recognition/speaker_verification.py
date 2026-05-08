@@ -8,6 +8,7 @@ audio_file_1speaker = os.path.join(BASE_DIR, "raspberrypi", "sessions", "session
 audio_file_2speakers = os.path.join(BASE_DIR, "raspberrypi", "sessions", "session_20260507_082323", "audio.wav")
 audio_file_2speakers_2 = os.path.join(BASE_DIR, "raspberrypi", "sessions", "session_20260507_082903", "audio.wav")
 audio_file_2speakers_3 = os.path.join(BASE_DIR, "raspberrypi", "sessions", "session_20260507_083917", "audio.wav")
+audio_file_multi_speakers = os.path.join(BASE_DIR, "raspberrypi", "sessions", "session_20260508_172853", "audio.wav")
 
 
 def detect_speakers_number(audio_file):
@@ -25,4 +26,5 @@ def detect_speakers_number(audio_file):
 # detect_speakers_number(audio_file_1speaker) # True
 # detect_speakers_number(audio_file_2speakers) # False
 # detect_speakers_number(audio_file_2speakers_2) # False
+# detect_speakers_number(audio_file_2speakers_3) # True
 detect_speakers_number(audio_file_2speakers_3) # True

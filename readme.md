@@ -19,3 +19,6 @@
   * speaker recognition: speakers number detection
 * 7.05.2026
   * more diverse records added and evaluated
+* 8.05.2026
+  * noice reduction with deepFilter (poor results)
+  * pipeline for audio preprocessing
